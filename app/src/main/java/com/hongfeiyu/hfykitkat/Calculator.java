@@ -110,7 +110,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mListener.setHandler(mLogic, mPager);
         mDisplay.setOnKeyListener(mListener);
-        
+
 
         mLogic.resumeWithHistory();
         updateDeleteMode();

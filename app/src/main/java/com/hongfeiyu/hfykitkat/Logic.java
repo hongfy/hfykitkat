@@ -19,11 +19,13 @@ package com.hongfeiyu.hfykitkat;
 import com.hongfeiyu.hfykitkat.CalculatorDisplay.Scroll;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.content.Context;
 import android.content.res.Resources;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
@@ -237,11 +239,15 @@ class Logic {
         }
         // Find and replace any translated mathematical functions.
         input = replaceTranslations(input);
-        double value = mSymbols.eval(input);
+
+        Log.e("exprout", input);
+        Double value = mSymbols.eval(input);
+        Log.e("exprout", "double结果为" + value.toString());
+        BigDecimal bigValue = new BigDecimal(mSymbols.eval(input));
 
         String result = "";
         for (int precision = mLineLength; precision > 6; precision--) {
-            result = tryFormattingWithPrecision(value, precision);
+            result = tryFormattingWithPrecision(bigValue, precision);
             if (result.length() <= mLineLength) {
                 break;
             }
@@ -275,7 +281,7 @@ class Logic {
         return input;
     }
 
-    private String tryFormattingWithPrecision(double value, int precision) {
+    private String tryFormattingWithPrecision(BigDecimal value, int precision) {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
         String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);

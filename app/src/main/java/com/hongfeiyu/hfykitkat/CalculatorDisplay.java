@@ -33,7 +33,7 @@ import android.widget.ViewSwitcher;
 class CalculatorDisplay extends ViewSwitcher {
 
     private static final String ATTR_MAX_DIGITS = "maxDigits";
-    private static final int DEFAULT_MAX_DIGITS = 10;
+    private static final int DEFAULT_MAX_DIGITS = 100;
 
     // only these chars are accepted from keyboard
     private static final char[] ACCEPTED_CHARS =
